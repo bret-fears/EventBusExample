@@ -15,6 +15,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Locale;
+
 
 public class DetailFragment extends Fragment {
 
@@ -61,7 +63,7 @@ public class DetailFragment extends Fragment {
 
         brandTv.setText(event.getBrand());
         nameTv.setText(event.getName());
-        priceTv.setText(Float.toString(event.getPrice()));
+        priceTv.setText(String.format(Locale.US, "$%.2f", event.getPrice()));
     }
 
 }
