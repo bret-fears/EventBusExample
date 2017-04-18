@@ -1,7 +1,6 @@
 package com.willowtreeapps.eventbusexample;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -51,13 +50,9 @@ public class PaginatedActivity extends AppCompatActivity {
             }
         });
 
-        // Delay a post to allow the fragment to inflate
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                EventBus.getDefault().post(new RetrieveProductEvent(productId));
-            }
-        }, 200);
+        // post a sticky event to allow the enough time for the fragment to register the receiver
+        EventBus.getDefault().postSticky(new RetrieveProductEvent(productId));
+
     }
 
     @Override
@@ -72,7 +67,7 @@ public class PaginatedActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    @Subscribe(threadMode = ThreadMode.ASYNC)
+    @Subscribe(threadMode = ThreadMode.ASYNC, sticky = true)
     public void onRetrieveProductEvent(RetrieveProductEvent event) {
         Log.i(TAG, String.format("Retrieving the product %s on %s",
                 event.getIdentifier(),

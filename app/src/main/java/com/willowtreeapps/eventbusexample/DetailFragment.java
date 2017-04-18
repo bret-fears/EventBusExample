@@ -55,7 +55,7 @@ public class DetailFragment extends Fragment {
         super.onPause();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onProductDetailEvent(ProductDetailEvent event) {
         Log.i(TAG, String.format("Product details received for identifier %s on %s",
                 event.getIdentifier(),
