@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.willowtreeapps.eventbusexample.models.MobileNetConnectedEvent;
+import com.willowtreeapps.eventbusexample.models.MobileNetDisconnectedEvent;
+
 import org.greenrobot.eventbus.EventBus;
 
 
