@@ -1,6 +1,7 @@
 package com.willowtreeapps.eventbusexample;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -32,8 +33,6 @@ public class PaginatedActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.detail_fragment, DetailFragment.newIstance())
                 .commit();
 
-        EventBus.getDefault().post(new RetrieveProductEvent(productId));
-
         Button next = (Button) findViewById(R.id.next);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +51,13 @@ public class PaginatedActivity extends AppCompatActivity {
             }
         });
 
+        // Delay a post to allow the fragment to inflate
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.getDefault().post(new RetrieveProductEvent(productId));
+            }
+        }, 200);
     }
 
     @Override
